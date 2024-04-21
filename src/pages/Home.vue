@@ -1,12 +1,12 @@
 <template>
   <h1>Welcome To Our Forum</h1>
-  <thread-list :threads="threads" />
+  <CategoryList :categories="categories" />
 </template>
 
 <script setup>
-import threadList from "@/components/ThreadList.vue";
 import sourceData from "@/data.json";
-import { ref } from "vue";
+import CategoryList from "../components/CategoryList.vue";
+import { reactive } from "vue";
 
-const threads = ref(sourceData.threads);
+const categories = reactive(sourceData.categories);
 </script>
