@@ -4,9 +4,14 @@
 </template>
 
 <script setup>
-import sourceData from "@/data.json";
 import CategoryList from "../components/CategoryList.vue";
-import { reactive } from "vue";
+import { onMounted, reactive } from "vue";
+import { useSourceDataStore } from "../store/SourceDataStore";
+const sourceData = useSourceDataStore();
+
+onMounted(() => {
+  console.log(sourceData[0]);
+});
 
 const categories = reactive(sourceData.categories);
 </script>
