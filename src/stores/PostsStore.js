@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import sourceData from "@/data.json";
+import { useThreadsStore } from "./ThreadsStore";
 export const usePostsStore = defineStore("PostsStore", {
   state: () => {
     return {
@@ -8,13 +9,13 @@ export const usePostsStore = defineStore("PostsStore", {
   },
   getters: {},
   actions: {
-    createPost(context, post) {
+    createPost(post) {
       post.id = "ggpp" + Math.random();
-      context.commit("setPost", { post });
-      context.commit("appendPostToThread", {
-        postId: post.id,
-        threadId: post.threadId,
-      });
+      this.posts.push(post); //set the post
+      const thread = useThreadsStore().threads.find(
+        (thread) => thread.id === post.threadId
+      );
+      thread.posts.push(post.id);
     },
   },
 });

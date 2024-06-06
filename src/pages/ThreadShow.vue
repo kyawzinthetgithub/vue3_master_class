@@ -10,11 +10,12 @@
 <script setup>
 import PostList from "@/components/PostList.vue";
 import FormEditor from "@/components/FormEditor.vue";
-import sourceData from "@/data.json";
-import { reactive, computed } from "vue";
+import { usePostsStore } from "../stores/PostsStore";
+import { useThreadsStore } from "../stores/ThreadsStore";
+import { computed } from "vue";
 
-const threads = reactive(sourceData.threads);
-const posts = reactive(sourceData.posts);
+const threads = useThreadsStore().threads;
+const posts = usePostsStore().posts;
 
 const props = defineProps({
   id: {
@@ -31,12 +32,19 @@ const threadPost = computed(() => {
   return posts.filter((post) => post.threadId === props.id);
 });
 
+// function addPost(eventData) {
+//   const post = {
+//     ...eventData.post,
+//     threadId: props.id,
+//   };
+//   posts.push(post);
+// }
+
 function addPost(eventData) {
   const post = {
     ...eventData.post,
     threadId: props.id,
   };
-  posts.push(post);
-  // thread.posts.push(post.id);
+  usePostsStore().createPost(post);
 }
 </script>
