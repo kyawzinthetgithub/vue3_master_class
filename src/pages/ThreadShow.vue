@@ -12,7 +12,7 @@ import PostList from "@/components/PostList.vue";
 import FormEditor from "@/components/FormEditor.vue";
 import { usePostsStore } from "../stores/PostsStore";
 import { useThreadsStore } from "../stores/ThreadsStore";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 const threads = useThreadsStore().threads;
 const posts = usePostsStore().posts;
